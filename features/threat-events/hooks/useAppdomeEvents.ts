@@ -3,7 +3,7 @@ import { ThreatEvent } from '../../types'; // Adjust path if necessary
 
 // Placeholder for actual Appdome SDK/API interaction
 const appdomeApi = {
-  subscribeToEvents: (_callback: (event: ThreatEvent) => void) => {
+  subscribeToEvents: () => {
     // Simulate receiving events periodically
     const intervalId = setInterval(() => {
       // This is just a placeholder for a real subscription.
