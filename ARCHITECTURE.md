@@ -26,6 +26,7 @@ This section describes common elements ensuring consistency and interoperability
 
 - **Core Abstractions:**
     - **React Components:** Building blocks of the UI, following a component-based architecture.
+        - Includes screens for landing page management, social publishing, omnichat, Google Business Profile, Meta Business integration, and a **Threat Events Screen** for displaying security alerts.
     - **React Hooks:** For stateful logic and side effects within functional components.
     - **Expo SDK Modules:** Leveraging Expo's APIs for device capabilities and simplified development workflows (e.g., camera, file system, notifications).
 - **State Management:**
@@ -42,6 +43,7 @@ This system, inspired by principles from Google Jules, focuses on modular, auton
 
 - **Core Agent Abstraction:**
     - **Base Agent Class/Interface:** [**TODO: Define a common structure or interface for agents, potentially including methods like `handle_task(task_description)` and `get_status()`.**]
+    - Agents include `LandingPageAgent`, `SocialPublishingAgent`, `OmniChatAgent`, `GoogleBusinessAgent`, `MetaBusinessAgent`, and the conceptual `SecurityAgent`.
     - **Lifecycle Management:** [**TODO: How are agents instantiated, configured, started, monitored, and stopped? This might be managed by the `MasterControlAgent` or a dedicated service.**]
 - **Communication Protocols (Inter-Agent):**
     - **Message Format:** Standardized JSON for message payloads, potentially with defined schemas (e.g., JSON Schema) for validation and clarity.
@@ -73,6 +75,7 @@ This section defines key interfaces enabling modularity.
     - `GET /api/v1/chat/messages`: Fetches aggregated chat messages.
     - `POST /api/v1/chat/send`: Sends a chat message.
     - `PUT /api/v1/gbp/profile`: Updates Google Business Profile.
+    - `GET /api/v1/security/threat-events`: Fetches detected security threat events.
 - [**TODO: Formalize this API using OpenAPI/Swagger specifications as it's defined.**]
 
 ### 3.2. Inter-Agent Interfaces (Backend)
@@ -82,6 +85,12 @@ This section defines key interfaces enabling modularity.
     - **Input:** User ID, list of platforms (e.g., "facebook", "instagram"), structured content (text, image URLs).
     - **Output:** Status of publication for each platform (e.g., success, failure, post ID).
     - **Description:** This task instructs the agent to publish the provided content to the specified social media platforms for the given user.
+
+**Example: `SecurityAgent`**
+- **Task:** `process_appdome_event(event_payload)`
+- **Input:** Raw event data from Appdome.
+- **Output:** Normalized threat event object, or status of processing.
+- **Description:** This task instructs the agent to process an incoming event from Appdome, normalize it, and potentially trigger alerts or log it.
 
 ### 3.3. External API Interfaces
 - Agents like `SocialPublishingAgent`, `GoogleBusinessAgent`, `MetaBusinessAgent`, and `OmniChatAgent` will interact with external third-party APIs (e.g., Meta Graph API, Google Business Profile API, WhatsApp Business API).
@@ -103,6 +112,18 @@ Adding new features typically involves modifications across both frontend and ba
     *   Update state management and display logic to handle LinkedIn-specific responses or data.
 3.  **Documentation:** Update `AGENTS.MD` and relevant sections of this `ARCHITECTURE.MD`.
 4.  **Testing:** Add unit and integration tests for the new agent, API endpoints, and UI components.
+
+**Adding New Threat Events:**
+To incorporate new types of threat events (e.g., from Appdome or other security services):
+1.  **Backend (`SecurityAgent`):**
+    *   Add new parsing/normalization logic within the `SecurityAgent` to handle the specific event payload.
+    *   Define a new, standardized internal representation for this event if it differs significantly from existing ones.
+    *   Update the `SecurityAgent`'s event processing capabilities and any relevant storage or logging mechanisms.
+2.  **Frontend (`UserInterfaceAgent` & UI Components):**
+    *   If the event needs to be displayed, update the `UserInterfaceAgent`'s API to include this new event type or its details.
+    *   Create or modify UI components (e.g., a new type of event card in `ThreatEventsScreen`) to appropriately represent the new threat event.
+    *   Ensure data flow from the service to the UI component.
+3.  **Documentation:** Update `types.ts` (if new event types are defined), `AGENTS.MD` (if agent capabilities change significantly), and this `ARCHITECTURE.MD`.
 
 ---
 

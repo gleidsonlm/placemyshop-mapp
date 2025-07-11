@@ -72,6 +72,24 @@ npx expo run:ios # Runs on an iOS simulator or connected device (macOS only)
 npx expo run:web # Runs in a web browser
 ```
 
+## Security Threat Event Monitoring
+
+The application includes a feature to monitor and display security threat events, enhancing its security posture. Initially, this focuses on events provided by Appdome.
+
+### NetworkProxyConfigured Event
+
+*   **Event:** `NetworkProxyConfigured`
+*   **Description:** This event is triggered when the Appdome security layer detects that a remote proxy server has been configured on the device. This could indicate a potential Man-in-the-Middle (MitM) attack attempt, where an unauthorized party might try to intercept network traffic.
+*   **UI Display:** Detected Network Proxy events are shown on the "Threat Events" screen. Each event card displays key details such as:
+    *   Proxy Host
+    *   Proxy Port
+    *   Proxy Type
+    *   Network Connection Type
+    *   Application State at the time of detection
+    *   Timestamp of the detection
+
+This allows for awareness and potential logging of such security-sensitive occurrences.
+
 ## Badges
 
 <!-- TODO: Add badges when available, e.g.:

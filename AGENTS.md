@@ -12,7 +12,7 @@ The design and interaction of these agents will draw inspiration from principles
 
 ## Planned Core Agents
 
-The following agents are envisioned to deliver the core functionality of `placemyshop`. More specialized agents may be introduced as the system evolves.
+The following 8 agents are envisioned to deliver the core functionality of `placemyshop`. More specialized agents may be introduced as the system evolves.
 
 ---
 
@@ -110,3 +110,15 @@ Agents will likely communicate via a combination of direct API calls (for tightl
 ---
 
 *This document outlines the planned agentic structure. Details will be refined as development progresses.*
+---
+
+### 8. `SecurityAgent` (Conceptual)
+*   **Feature Alignment:** Security Monitoring, Threat Event Handling
+*   **Description:** This agent is responsible for receiving, processing, and managing security-related events, such as those provided by Appdome.
+*   **Key Responsibilities (Planned):**
+    *   Interface with security services/SDKs (e.g., Appdome) to receive threat events.
+    *   Process and normalize these events (e.g., `NetworkProxyConfigured`).
+    *   Store or log relevant event details.
+    *   Communicate critical events to the `UserInterfaceAgent` (via `MasterControlAgent`) for display to the user or for other actions.
+*   **Potential Tools:** SDKs for security services, event parsing libraries.
+*   **Interacts With (Planned):** `UserInterfaceAgent`, `MasterControlAgent`, External Security Services.
