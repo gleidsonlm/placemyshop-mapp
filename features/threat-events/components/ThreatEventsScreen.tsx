@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, SafeAreaView, Button } from 'react-native'; // Add Button
 import { threatEventsService } from '../services/ThreatEventsService';
-import { BaseThreatEvent, NetworkProxyConfiguredEvent } from '../types';
-import NetworkProxyEventCard from './NetworkProxyEventCard'; // Import the actual component
+import { BaseThreatEvent, NetworkProxyConfiguredEvent } from '../types/index';
+import ThreatEventCard from './ThreatEventCard'; // Import the actual component
 
 // Placeholder for NetworkProxyEventCard - REMOVE THIS ONCE THE ACTUAL COMPONENT IS CREATED
 // const NetworkProxyEventCard = (props: { event: NetworkProxyConfiguredEvent }) => (
@@ -53,7 +53,7 @@ const ThreatEventsScreen: React.FC<ThreatEventsScreenProps> = ({ onClose }) => {
         {networkProxyEvents.length > 0 ? (
           <FlatList
             data={networkProxyEvents}
-            renderItem={({ item }) => <NetworkProxyEventCard event={item} />}
+            renderItem={({ item }) => <ThreatEventCard event={item} />}
             keyExtractor={item => item.id}
           />
         ) : (
