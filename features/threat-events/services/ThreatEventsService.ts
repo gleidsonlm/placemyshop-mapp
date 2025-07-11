@@ -1,4 +1,4 @@
-import { BaseThreatEvent, NetworkProxyConfiguredEvent } from '../types';
+import { BaseThreatEvent, NetworkProxyConfiguredEvent } from '../types/index';
 
 export class ThreatEventsService {
   private events: BaseThreatEvent[] = [];
